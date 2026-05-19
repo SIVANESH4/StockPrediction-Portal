@@ -1,0 +1,46 @@
+@import "tailwindcss";
+
+* {
+    scrollbar-width: none;
+}
+
+:root {
+    /* Color Palette References (Tailwind defaults utilized in the JSX)
+       Slate-950 (Background): #020617
+       Slate-900 (Cards/Borders): #0f172a
+       Slate-400 (Muted Text): #94a3b8
+       Emerald-400 (Primary Accent): #34d399
+       Cyan-400 (Secondary Accent): #22d3ee 
+    */
+    color-scheme: dark;
+
+    body {
+        margin: 0;
+        font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+        background-color: #020617;
+        /* bg-slate-950 */
+        color: #f8fafc;
+        /* text-slate-50 */
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+    }
+}
+
+.dynamic-pulse {
+    animation: badge-glow 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+
+@keyframes badge-glow {
+
+    0%,
+    100% {
+        box-shadow: 0 0 0 0 rgba(16, 185, 129, 0);
+        border-color: rgba(16, 185, 129, 0.3);
+    }
+
+    50% {
+        box-shadow: 0 0 12px 2px rgba(16, 185, 129, 0.15);
+        border-color: rgba(16, 185, 129, 0.6);
+    }
+}
