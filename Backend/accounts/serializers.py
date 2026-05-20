@@ -1,8 +1,8 @@
 from rest_framework import serializers
-from .models import User_table
+from .models import User
 
 class UserSerializer(serializers.ModelSerializer):
     password = serializers.CharField(write_only=True, style={'input_type': 'password'})
     class Meta:
-        model = User_table
+        model = User
         fields = ['id', 'username', 'email', 'password']

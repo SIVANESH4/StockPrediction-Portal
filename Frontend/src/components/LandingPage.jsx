@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import { LineChart, Line, ResponsiveContainer, Tooltip } from 'recharts';
-import './index.css'
+import '../index.css'
 import { ArrowUpRight, Shield, Zap, BarChart3, TrendingUp, Cpu, CheckCircle2 } from 'lucide-react';
+import { Link } from 'react-router-dom';
 
 // Mock data for the mini preview chart
 const mockChartData = [
@@ -22,7 +23,7 @@ export default function LandingPage() {
       {/* --- NAV BAR --- */}
       <nav className="border-b border-slate-900 bg-slate-950/80 backdrop-blur-md sticky top-0 z-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
-          <div className="flex items-center gap-2 font-bold text-xl tracking-tight bg-gradient-to-r from-emerald-400 to-cyan-400 bg-clip-text text-transparent">
+          <div className="flex items-center gap-2 font-bold text-xl tracking-tight bg-linear-to-r from-emerald-400 to-cyan-400 bg-clip-text text-transparent">
             <TrendingUp className="text-emerald-400 w-6 h-6" />
             StockPulse.ai
           </div>
@@ -30,27 +31,29 @@ export default function LandingPage() {
             <a href="#features" className="hover:text-emerald-400 transition-colors">Features</a>
             <a href="#preview" className="hover:text-emerald-400 transition-colors">AI Engine</a>
           </div>
+        <Link to="/login">
           <button className="bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-semibold px-4 py-2 rounded-lg text-sm transition-all shadow-lg shadow-emerald-500/10">
             Login
           </button>
+        </Link>
         </div>
       </nav>
 
       {/* --- HERO SECTION --- */}
       <header className="relative overflow-hidden py-20 lg:py-32">
         {/* Ambient background glow */}
-        <div className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-emerald-500/10 blur-[120px] rounded-full pointer-events-none" />
+        <div className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-125 h-125 bg-emerald-500/10 blur-[120px] rounded-full pointer-events-none" />
         
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 grid lg:grid-cols-2 gap-12 items-center">
           
           {/* Left Text Column */}
-          <div className="space-y-6 text-center lg:text-left">
+          <div className="space-y-5 text-center lg:text-left">
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-emerald-500/30 bg-emerald-500/10 text-emerald-400 text-xs font-medium dynamic-pulse">
               <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
               v2.0 Predictive Engine Active
             </div>
             <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-white leading-tight">
-              Predict market trends with <span className="bg-gradient-to-r from-emerald-400 to-cyan-400 bg-clip-text text-transparent">AI precision.</span>
+              Predict market trends with <span className="bg-linear-to-r from-emerald-400 to-cyan-400 bg-clip-text text-transparent">AI precision.</span>
             </h1>
             <p className="text-lg text-slate-400 max-w-xl mx-auto lg:mx-0">
               Stop guessing. Leverage advanced machine learning algorithms trained on decades of market behavior to forecast stock movements before they happen.
@@ -58,9 +61,11 @@ export default function LandingPage() {
             
             {/* CTA Form */}
             
-              <button className="bg-gradient-to-r from-emerald-500 to-cyan-500 hover:from-emerald-400 hover:to-cyan-400 text-slate-950 font-bold px-6 py-3 rounded-xl text-sm transition-all flex items-center justify-center gap-2 whitespace-nowrap shadow-xl shadow-emerald-500/10">
-                Start Predicting <ArrowUpRight className="w-4 h-4" />
+              <Link to="/register" >
+              <button className="bg-linear-to-r from-emerald-500 to-cyan-500 hover:from-emerald-400 hover:to-cyan-400 text-slate-950 font-bold px-6 py-3 rounded-xl text-sm transition-all flex items-center justify-center gap-2 whitespace-nowrap shadow-xl shadow-emerald-500/10">
+                Start Predicting  <ArrowUpRight className="w-4 h-4" />
               </button>
+              </Link>
           </div>
 
           {/* Right Visual/Chart Column */}
