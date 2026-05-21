@@ -1,13 +1,32 @@
 import React, { useState } from 'react';
-import { TrendingUp, Mail, Lock, ArrowRight, Eye, EyeOff } from 'lucide-react';
+import { TrendingUp, Lock, ArrowRight, Eye, EyeOff, User } from 'lucide-react';
+import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 export default function LoginPage() {
   const [showPassword, setShowPassword] = useState(false);
-  const [formData, setFormData] = useState({ email: '', password: '' });
+  const [formData, setFormData] = useState({ username: '', password: '' });
+  const [loggedIn, setLoggedIn] = useState(false)
+  const [err, setErr] = useState(false)
+  const navigate = useNavigate();
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     console.log('Logging in with:', formData);
+
+    try {
+      const response = await axios.post('http://127.0.0.1:8000/api/v1/token/', formData);
+      console.log('Login successful:', response.data);
+      localStorage.setItem('access_token', response.data.access);
+      localStorage.setItem('refresh_token', response.data.refresh);
+      setLoggedIn(true);
+      navigate('/dashboard');
+    }
+    catch (error) {
+      console.error('Login failed:', error);
+      setErr(true);
+    }
   };
 
   return (
@@ -23,27 +42,31 @@ export default function LoginPage() {
         <h2 className="mt-6 text-center text-4xl font-bold text-white tracking-tight">
           Welcome back
         </h2>
-      </div>
-
+        <p className="mt-2 text-center text-sm text-slate-400">
+          Don't have an account?{' '}
+          <a href="/register" className="font-medium text-cyan-400 hover:text-cyan-300 transition-colors">
+            Sign up
+          </a>
+        </p>      </div>
       <div className="mt-8 sm:mx-auto w-full max-w-md relative z-10 px-4 sm:px-0">
         <div className="bg-slate-900/40 border border-slate-900 backdrop-blur-md py-8 px-4 shadow-2xl sm:rounded-2xl sm:px-10">
           <form className="space-y-6" onSubmit={handleSubmit}>
-            {/* Email Field */}
+            {/* Username Field */}
             <div>
-              <label htmlFor="email" className="block text-xs font-semibold uppercase tracking-wider text-slate-400 mb-2">
-                Email Address
+              <label htmlFor="username" className="block text-xs font-semibold uppercase tracking-wider text-slate-400 mb-2">
+                Username
               </label>
               <div className="relative rounded-xl shadow-sm">
                 <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-slate-500">
-                  <Mail className="h-5 w-5" />
+                  <User className="h-5 w-5" />
                 </div>
                 <input
-                  id="email"
-                  type="email"
+                  id="username"
+                  type="text"
                   required
-                  value={formData.email}
-                  onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                  placeholder="name@company.com"
+                  value={formData.username}
+                  onChange={(e) => setFormData({ ...formData, username: e.target.value })}
+                  placeholder="Enter your username"
                   className="block w-full pl-10 pr-3 py-3 bg-slate-950/60 border border-slate-800 rounded-xl text-sm text-white placeholder-slate-600 focus:outline-none focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500 transition-all"
                 />
               </div>
@@ -55,11 +78,7 @@ export default function LoginPage() {
                 <label htmlFor="password" className="block text-xs font-semibold uppercase tracking-wider text-slate-400">
                   Password
                 </label>
-                <div className="text-xs">
-                  <a href="#" className="font-medium text-cyan-400 hover:text-cyan-300 transition-colors">
-                    Forgot password?
-                  </a>
-                </div>
+
               </div>
               <div className="relative rounded-xl shadow-sm">
                 <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-slate-500">
@@ -83,6 +102,13 @@ export default function LoginPage() {
                 </button>
               </div>
             </div>
+            {
+              err && (
+                <p className="text-red-500 text-sm">
+                  Invalid username or password. Please try again.
+                </p>
+              )
+            }
             {/* Submit Button */}
             <button
               type="submit"
@@ -90,10 +116,12 @@ export default function LoginPage() {
             >
               Sign In <ArrowRight className="w-4 h-4" />
             </button>
+            {loggedIn && (
+              <p>
+                Login successful! Redirecting...
+              </p>
+            )}
           </form>
-
-          
-
         </div>
       </div>
     </div>

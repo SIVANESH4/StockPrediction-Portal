@@ -1,5 +1,5 @@
 """
-WSGI config for StockPredictionPortal_main project.
+WSGI config for stock_prediction_main project.
 
 It exposes the WSGI callable as a module-level variable named ``application``.
 
@@ -11,6 +11,6 @@ import os
 
 from django.core.wsgi import get_wsgi_application
 
-os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'StockPredictionPortal_main.settings')
+os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'stock_prediction_main.settings')
 
 application = get_wsgi_application()
