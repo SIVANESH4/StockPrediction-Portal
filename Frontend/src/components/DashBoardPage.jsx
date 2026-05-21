@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState , useEffect} from 'react';
 import {
   LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, AreaChart, Area
 } from 'recharts';
@@ -7,6 +7,7 @@ import {
   Layers, Brain, ShieldAlert, CheckCircle, Flame, DollarSign, Activity
 } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 
 // Mock performance dataset for the main forecasting engine
 const chartData = [
@@ -26,8 +27,20 @@ export default function DashboardPage() {
   const handleLogOut = () => {
     localStorage.removeItem('access_token');
     localStorage.removeItem('refresh_token');
-    navigate('/login');
+    navigate('/');
   }
+  // useEffect(()=>{
+  //   const fetchData = async () =>{
+  //     try{
+  //       const response = await axios.get('http://127.0.0.1:8000/api/v1/accounts/')
+  //       console.log('Dashboard data:', response.data);
+  //     }
+  //     catch(e){
+  //       console.error('Error fetching dashboard data:', e);
+  //     }
+  //   }
+  //   fetchData();
+  // },[])
 
   return (
     <div className="min-h-screen bg-slate-950 text-slate-100 font-sans flex flex-col selection:bg-emerald-500 selection:text-slate-950">

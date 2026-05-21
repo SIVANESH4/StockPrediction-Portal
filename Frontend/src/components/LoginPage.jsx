@@ -3,13 +3,16 @@ import { TrendingUp, Lock, ArrowRight, Eye, EyeOff, User } from 'lucide-react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { Link } from 'react-router-dom';
+import { useContext } from 'react';
+import { AuthContext } from '../components/AuthProvider';
 
 export default function LoginPage() {
   const [showPassword, setShowPassword] = useState(false);
   const [formData, setFormData] = useState({ username: '', password: '' });
-  const [loggedIn, setLoggedIn] = useState(false)
+  const {isLoggedIn, setIsLoggedIn} = useContext(AuthContext)
   const [err, setErr] = useState(false)
   const navigate = useNavigate();
+  
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -20,7 +23,7 @@ export default function LoginPage() {
       console.log('Login successful:', response.data);
       localStorage.setItem('access_token', response.data.access);
       localStorage.setItem('refresh_token', response.data.refresh);
-      setLoggedIn(true);
+      setIsLoggedIn(true);
       navigate('/dashboard');
     }
     catch (error) {
@@ -116,7 +119,7 @@ export default function LoginPage() {
             >
               Sign In <ArrowRight className="w-4 h-4" />
             </button>
-            {loggedIn && (
+            {isLoggedIn && (
               <p>
                 Login successful! Redirecting...
               </p>
