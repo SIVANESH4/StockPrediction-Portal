@@ -14,3 +14,7 @@ class UserSerializer(serializers.ModelSerializer):
             password=validated_data['password']
         )
         return user
+    
+class StockPredictionSerializer(serializers.Serializer):
+    ticker = serializers.CharField(max_length=20)
+    
